@@ -1,0 +1,19 @@
+{
+  "uuid" : "fcec9b39-86fb-38db-b8dc-b481a4fc4431",
+  "request" : {
+    "url" : "/oauth2.0/profile",
+    "method" : "GET",
+    "headers" : {
+      "Authorization" : {
+        "equalTo" : "Bearer Bradley"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-oauth2.0-profile-Bradley.json",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  }
+}

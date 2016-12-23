@@ -36,7 +36,7 @@ public class OauthIssueApplicationTests {
     @Test
     public void itShouldReturnUserName() throws Exception {
         //given
-        String token = "Aldis";
+        String token = "Bradley";
 
         //when
         ResultActions result = mockMvc.perform( get( USER_PATH ).header( "Authorization", BEARER_TYPE + " " + token ) );
