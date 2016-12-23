@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -31,10 +32,14 @@ public class OauthIssueApplicationTests extends AbstractTestNGSpringContextTests
     @Autowired
     private WebApplicationContext wac;
 
-    @Test
-    public void itShouldReturnUserName() throws Exception {
+    @DataProvider(name = "users")
+    public static Object[][] user() {
+        return new Object[][] { { "Bradley" }, { "Aldis" } };
+    }
+
+    @Test(dataProvider = "users")
+    public void itShouldReturnUserName( String token ) throws Exception {
         //given
-        String token = "Bradley";
 
         //when
         ResultActions result = mockMvc.perform( get( USER_PATH ).header( "Authorization", BEARER_TYPE + " " + token ) );
