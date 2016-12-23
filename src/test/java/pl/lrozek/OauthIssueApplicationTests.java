@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.lrozek.controller.UserController.USER_PATH;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,14 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OauthIssueApplicationTests {
+
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule( 8081 );
 
     private MockMvc mockMvc;
 
