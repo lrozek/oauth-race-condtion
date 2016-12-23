@@ -7,26 +7,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.lrozek.controller.UserController.USER_PATH;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.WireMockServer;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class OauthIssueApplicationTests {
+public class OauthIssueApplicationTests extends AbstractTestNGSpringContextTests {
 
-    @Rule
-    public WireMockRule wireMockRule = new WireMockRule( 8081 );
+    private WireMockServer wireMockServer;
 
     private MockMvc mockMvc;
 
@@ -58,12 +56,23 @@ public class OauthIssueApplicationTests {
 
     }
 
-    @Before
+    @BeforeMethod
     public void setup() {
         mockMvc = MockMvcBuilders
                                  .webAppContextSetup( wac )
                                  .apply( springSecurity() )
                                  .build();
+    }
+
+    @BeforeClass
+    public void setupWireMock() {
+        wireMockServer = new WireMockServer( 8081 );
+        wireMockServer.start();
+    }
+
+    @AfterClass
+    public void cleanupWireMock() {
+        wireMockServer.stop();
     }
 
 }
