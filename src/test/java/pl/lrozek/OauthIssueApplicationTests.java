@@ -37,7 +37,7 @@ public class OauthIssueApplicationTests extends AbstractTestNGSpringContextTests
         return new Object[][] { { "Bradley" }, { "Aldis" } };
     }
 
-    @Test(dataProvider = "users", threadPoolSize = 2, invocationCount = 2)
+    @Test(dataProvider = "users", threadPoolSize = 2, invocationCount = 1)
     public void itShouldReturnUserName( String token ) throws Exception {
         //given
 
