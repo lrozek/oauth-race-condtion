@@ -1,5 +1,5 @@
-it reproduces race condition in UserInfoTokenServices when OAuth2ClientContext isn't request scoped and multiple thread modify same instance of OAuth2ClientContext
-The problem is in following snippet:
+it reproduces race condition in UserInfoTokenServices when OAuth2ClientContext isn't request scoped and multiple threads modify same instance of OAuth2ClientContext. 
+The problem is in following snippet of getMap method in UserInfoTokenServices class:
 
 
 			OAuth2AccessToken existingToken = restTemplate.getOAuth2ClientContext()
@@ -24,7 +24,7 @@ in 1.4.0 the OAuth2ClientIdCondition it returns matching ConditionOutcome based 
 
 After following change:
 https://github.com/spring-projects/spring-boot/commit/7396ccfe04994c97b45b2e52d49bb0754575118f
-the OAuth2ClientIdCondition always matchers regardless if security.oauth2.client.client-id is set or not.
+the OAuth2ClientIdCondition always matches regardless if security.oauth2.client.client-id is set or not.
 
-This means that above 1.4.0.RELEASE is enabled OAuth2RestOperationsConfiguration.RequestScopedConfiguration creating request scoped OAuth2ClientContext
+This means that above 1.4.0.RELEASE OAuth2RestOperationsConfiguration.RequestScopedConfiguration is enabled, creating request scoped OAuth2ClientContext
 and fixing race condition.
